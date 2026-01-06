@@ -1,0 +1,76 @@
+Thực thể và thuộc tính chính
+User
+
+	user_id (PK)
+	full_name, email, password, role (student/instructor/admin)
+
+Instructor (mở rộng từ User)
+
+	instructor_id (PK, đồng thời là FK → User)
+
+	degree, expertise
+
+Category
+
+	category_id (PK)
+
+	category_name
+
+Course
+
+	course_id (PK)
+
+	title, description, level, price, release_date
+
+	category_id (FK → Category)
+	
+	instructor_id (FK → Instructor)
+
+Enrollment (thực thể trung gian cho quan hệ n–n giữa User và Course)
+
+	enrollment_id (PK)
+
+	user_id (FK → User)
+
+	course_id (FK → Course)
+
+	enrollment_date, status
+
+Lesson
+
+	lesson_id (PK)
+
+	title, content, duration
+
+	course_id (FK → Course)
+
+Quiz
+
+	quiz_id (PK)
+
+	title, question_count
+
+	lesson_id (FK → Lesson)
+
+Result
+
+	result_id (PK)
+
+	score, attempt_date
+
+	user_id (FK → User)
+
+	quiz_id (FK → Quiz)
+
+Mối quan hệ chính
++ Instructor – Course: một giảng viên có thể dạy nhiều khóa học (1-n).
+
++ Course – Category: một khóa học thuộc về một danh mục (n-1).
+
++ Course – Lesson: một khóa học có nhiều bài học (1-n).
+
++ Lesson – Quiz: một bài học có thể có nhiều quiz (1-n).
+
++ User – Course: một học viên có thể học nhiều khóa học, một khóa học có nhiều học viên → quan hệ n–n, giải quyết bằng Enrollment.
+
++ User – Quiz – Result: một học viên có thể làm nhiều quiz, mỗi lần làm sinh ra một kết quả riêng (1-n).
